@@ -19,7 +19,13 @@ before_install:
 script:
 - npm run lint:js
 - npm test
+
+after_success:
+- rm -rf dist
+- ember build --prod
+
 deploy:
+  skip_cleanup: true
   provider: s3
   access_key_id: AKIAJWIEOB2WJZOHIKVQ
   secret_access_key:
