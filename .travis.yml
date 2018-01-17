@@ -1,28 +1,32 @@
----
 language: node_js
 node_js:
-  - "6"
-
+- '6'
 sudo: false
 dist: trusty
-
 addons:
   chrome: stable
 before_script:
-    - "sudo chown root /opt/google/chrome/chrome-sandbox"
-    - "sudo chmod 4755 /opt/google/chrome/chrome-sandbox"
+- sudo chown root /opt/google/chrome/chrome-sandbox
+- sudo chmod 4755 /opt/google/chrome/chrome-sandbox
 cache:
   directories:
-    - $HOME/.npm
-
+  - "$HOME/.npm"
 env:
   global:
-    # See https://git.io/vdao3 for details.
-    - JOBS=1
-
+  - JOBS=1
 before_install:
-  - npm config set spin false
-
+- npm config set spin false
 script:
-  - npm run lint:js
-  - npm test
+- npm run lint:js
+- npm test
+deploy:
+  provider: s3
+  access_key_id: AKIAJWIEOB2WJZOHIKVQ
+  secret_access_key:
+    secure: T8HIJBJAJr1di+9kVPKVWXr3BecMvhmqsLR+DMV6ja05rBXsnhAjGNj8hwW6vGRdq4+94EiwFKXtY+Ufde2xhW056hvoNR88UJAFSREr1eP1vRJW9Xt8T/vcYlDAzQGqosz9hJYOusLelAUkK3uIo7ZjdCF4h80OslpiWsg0qKXQ+tFuFsk5i2LC/TweFo6BNckZndgI9Q6W4HKBFlyVBRs84k7j1orGLqoZu3o1JtJH7hlEhu1YEZpOOAUtpDT0tw15O4wbh9U8j55dhkqBBNCJ2wPLrE6bF7SQGVML6n7OqnyDcoSg42vjFWv60tVpVAR+ZiAViM4V8Tn7D0AD5HrFrurYFrh0xm5mUqpp9kd5XcniGgcQ7OSH730bSqEobWQsSpX3sVC5G3EtEZeG5pEuNt/eF+UxlkdCD8j/ewQSCrBjsl7enY8I6CbIgKEQoWWMl3wMWBEFIe7oKxm7Ti4a789nVmxl9gwvlfckKKSl2lGESAlYKJUkfvsSAn0Q+3kmFmUb8+pm2rT5wBncMkV8EombGCTCTlXy7BguvPC0dRyyxFaeaP5GsMFG8DjME8/Jozbhcpc2VTjMG9jsNfGReC+cDQm68DmXlrWl/n+eNEeOGzvDyowLix4zs9yM/AQWoJnkLdqRBDLVaPuHmUrYDrH3oBE7XhYhZKqGYQk=
+  bucket: lasdhflakhsdf
+  local-dir: dist
+  acl: public_read
+  on:
+    branch: master
+    repo: mike-north/to-deploy
